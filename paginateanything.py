@@ -35,11 +35,11 @@ class Paginator(object):
     def page(self, number):
         "Returns a Page object for the given 1-based page number."
         number = self.validate_number(number)
-        bottom = (number - 1) * self.per_page
-        top = bottom + self.per_page
-        if top + self.orphans >= self.count:
-            top = self.count
-        return Page(bottom, top, number, self)
+        start = (number - 1) * self.per_page
+        stop = start + self.per_page
+        if stop + self.orphans >= self.count:
+            stop = self.count
+        return Page(start, stop, number, self)
 
     # TODO: use Werkzeug's cached_property decorator for this
     def _get_num_pages(self):
@@ -64,9 +64,9 @@ class Paginator(object):
 
 
 class Page(object):
-    def __init__(self, bottom, top, number, paginator):
-        self.bottom = bottom
-        self.top = top
+    def __init__(self, start, stop, number, paginator):
+        self.start = start
+        self.stop = stop
         self.number = number
         self.paginator = paginator
 

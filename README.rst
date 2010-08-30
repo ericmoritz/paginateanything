@@ -8,5 +8,5 @@ long as you know the count and the number of items per page::
     numbers = range(100)
     paginator = Paginator(len(numbers), 5)
     page = paginator.page(1)
-    items = numbers.slice(page.top, page.bottom)
+    items = numbers[page.start:page.stop)]
 
